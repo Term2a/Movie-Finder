@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./style.css">
+    <script src="./movieList.js" defer></script>
+    <script src="./script.js" defer></script>
+
+    <title>Movie Finder</title>
+</head>
+<body>
+    <div id="mainBg"></div>
+    <div id="main">
+        <select name="selector" class="button genrePicker">
+            <option value="0">Action</option>
+            <option value="1">Science Fiction</option>
+            <option value="2">Drama</option>
+        </select>
+        <div id="movieContainer">
+            <div id="moviePoster">
+                <img src="#" alt="Movie Poster">
+            </div>
+            <div id="movieInfo">
+                <h1 id="movieTitle">
+                    Movie title - movie title
+                </h1>
+                <h3 id="duration">
+                    02:20h
+                </h3>
+                <p id="movieDescription">
+                    Movie description movie description movie description
+                </p>
+                <h3 id="movieRating">
+                    10 / 10
+                </h3>
+            </div>
+        </div>
+        <input class="button refresh" type="button" value="REFRESH" onclick="getMovie()">
+    </div>
+</body>
+</html>
