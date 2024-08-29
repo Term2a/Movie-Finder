@@ -12,39 +12,89 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="./style.css">
-    <script src="./movieList.js" defer></script>
-    <script src="./script.js" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./main.js" defer></script>
 
     <title>Movie Finder</title>
 </head>
 <body>
     <div id="mainBg"></div>
-    <div id="main">
+    <main id="main">
         <select name="selector" class="button genrePicker">
-            <option value="0">Action</option>
-            <option value="1">Science Fiction</option>
-            <option value="2">Drama</option>
+            <option selected="selected" value="0">
+                Any Genre
+            </option>
+            <option class="movieGenre" value="28">
+                Ação
+            </option>
+            <option class="movieGenre" value="12">
+                Aventura
+            </option>
+            <option class="movieGenre" value="16">
+                Animação
+            </option>
+            <option class="movieGenre" value="35">
+                Comédia
+            </option>
+            <option class="movieGenre" value="80">
+                Crime
+            </option>
+            <option class="movieGenre" value="99">
+                Documentário
+            </option>
+            <option class="movieGenre" value="36">
+                História
+            </option>
+            <option class="movieGenre" value="14">
+                Fantasia
+            </option>
+            <option class="movieGenre" value="18">
+                Drama
+            </option>
+            <option class="movieGenre" value="9648">
+                Mistério
+            </option>
+            <option class="movieGenre" value="10749">
+                Romance
+            </option>
+            <option class="movieGenre" value="10752">
+                Guerra
+            </option>
+            <option class="movieGenre" value="53">
+                Thriller
+            </option>
+            <option class="movieGenre" value="37">
+                Faroeste
+            </option>
+            <option class="movieGenre" value="10751">
+                Família
+            </option>
+            <option class="movieGenre" value="27">
+                Terror
+            </option>
+            <option class="movieGenre" value="878">
+                Ficção Científica
+            </option>
+            <option class="movieGenre" value="10770">
+                Cinema TV
+            </option>
+            <option class="movieGenre" value="10402">
+                Música
+            </option>
         </select>
         <div id="movieContainer">
             <div id="moviePoster">
                 <img src="#" alt="Movie Poster">
             </div>
             <div id="movieInfo">
-                <h1 id="movieTitle">
-                    Movie title - movie title
-                </h1>
-                <h3 id="duration">
-                    02:20h
-                </h3>
-                <p id="movieDescription">
-                    Movie description movie description movie description
-                </p>
-                <h3 id="movieRating">
-                    10 / 10
-                </h3>
+                <h1 id="movieTitle"></h1>
+                <h3 id="movieRuntime"></h3>
+                <p id="movieDescription"></p>
+                <h3 id="movieRating"></h3>
             </div>
         </div>
-        <input class="button refresh" type="button" value="REFRESH" onclick="getMovie()">
-    </div>
+        <input class="button refresh" type="button" value="REFRESH" onclick="getMovies(genre)">
+    </main>
 </body>
 </html>
