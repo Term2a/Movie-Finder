@@ -19,7 +19,7 @@ let genre = '';
 document.querySelectorAll('option.movieGenre').forEach((el) => {
     el.addEventListener('click', () => {
         if (el.value !== 0) {
-            genre = `?with_genres=${el.value}`;
+            genre = `&with_genres=${el.value}`;
         }
     })
 })
@@ -29,28 +29,36 @@ const getMovies = (genre) => {
     changeLoading('none', 'block');
     axios({
         method: 'get',
-        url: `https://api.themoviedb.org/3/discover/movie${genre}`,
+        url: `https://api.themoviedb.org/3/discover/movie?&page=${RNG(400)}${genre}&include_adult=false&without_genres=softcore`,
         params: {
             api_key: '62b1a9584a2f2d350b05943ec3ca2630',
             language: 'pt-BR'
         }
     })
     .then(response => {
-        changeLoading('flex', 'none');
         setMovie(response);
     })
+    .catch(() => { getMovies(genre) });
 }
 getMovies(genre);
 
 //  Shows the user a random movie from that list
+let movie;
 function setMovie(response) {
-    const movie = response.data.results[RNG(19)];
+    movie = response.data.results[RNG(19)];
     let movieTitle = document.getElementById('movieTitle'),
         moviePoster = document.getElementById('moviePoster').querySelector('img'),
         movieDescription = document.getElementById('movieDescription'),
+        movieRelease = document.getElementById('releaseDate'),
         movieRating = document.getElementById('movieRating');
 
-    if ( Number(movie.vote_average) >= 6 ) {
+    if ( 
+        Number(movie.vote_average) >= 6.5 &&
+        Number(movie.vote_count) > 10 &&
+        isOnReleaseDate(movie) 
+    ) {
+        changeLoading('flex', 'none');
+        
         getMovieDetails(movie.id);
         getMovieCredits(movie.id);
 
@@ -63,10 +71,41 @@ function setMovie(response) {
         movie.overview ? 
             movieDescription.innerHTML = movie.overview : 
             movieDescription.innerHTML = '[Could not find an overview for this movie]';
+
+        movie.release_date ?
+            movieRelease.innerHTML = movie.release_date.split('-')[0] :
+            movieRelease.innerHTML = '[Not found]'
     
         movie.vote_average && movie.vote_count ? 
             movieRating.innerHTML = `<span id='ratingsIcon'><ion-icon name="star"></ion-icon>\n</span>${Number(movie.vote_average).toFixed(1)} / 10 <span id="voteCount">(${movie.vote_count})</span>` :
             movieRating.innerHTML = '[Could not find ratings for this movie]';
+    } else {
+        getMovies(genre);
+    }
+}
+
+function isOnReleaseDate(movie) {
+    let datePicker = document.getElementsByClassName('datePicker')[0],
+        desiredDate = datePicker.querySelectorAll(`option[value="${datePicker.value}"]`)[0].innerHTML.replace(/ /g, ''),
+        desiredDateValue = desiredDate[1] + desiredDate[2] + desiredDate[3] + desiredDate[4],
+        movieReleaseDate = movie.release_date.split('-')[0];
+
+    if ( datePicker.value == 0 ) {
+        return true
+
+    } else
+    if ( datePicker.value == 1 && movieReleaseDate <= desiredDateValue ) {
+        return true
+
+    } else
+    if (
+        ( datePicker.value == 2 || datePicker.value == 3 ) && 
+        movieReleaseDate >= desiredDateValue 
+    ) {
+        return true
+
+    } else {
+        return false
     }
 }
 
@@ -82,6 +121,7 @@ const getMovieDetails = (movieId) => {
     })
     .then(response => {
         let runtimeResponse = JSON.stringify(response.data.runtime),
+            originCountry = JSON.stringify(response.data.origin_country).replace(/[\[\]"]+/g, ''),
             hours = parseInt(runtimeResponse / 60),
             minutes = runtimeResponse - (hours * 60),
             runtime;
@@ -89,10 +129,22 @@ const getMovieDetails = (movieId) => {
         (hours < 10) ? hours = 0 + String(hours) : hours = hours;
         (minutes < 10) ? minutes = 0 + String(minutes) : minutes = minutes;
         runtime = `${hours}<span class='timeLabel'>h</span> ${minutes}<span class='timeLabel'>min</span>`;
-
         document.getElementById('movieRuntime').innerHTML = runtime;
-        document.getElementById('origin').innerHTML = JSON.stringify(response.data.origin_country).replace(/[\[\]"]+/g, '');
+
+        if (
+            runtimeResponse >= 60 &&
+            originCountry != 'KR' && 
+            originCountry != 'JP' &&
+            originCountry != 'CN' &&
+            originCountry != 'CN,HK' &&
+            originCountry != 'IL'
+        ) {
+            document.getElementById('origin').innerHTML = originCountry;
+        } else {
+            getMovies(genre);
+        }
     })
+    .catch(() => { getMovies(genre) });
 }
 
 const getMovieCredits = (movieId) => {
@@ -117,11 +169,12 @@ const getMovieCredits = (movieId) => {
             }
         }
 
-        directorBox.innerHTML = '[Not Found]';
+        directorBox.innerHTML = '[Not found]';
         response.data.cast.forEach((el) => {
             if ( el.known_for_department == 'Directing' ) {
                 directorBox.innerHTML = JSON.stringify(el.name).replace(/"/g, '');
             }
         })
     })
+    .catch(() => { getMovies(genre) });
 }
