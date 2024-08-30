@@ -12,7 +12,8 @@
     width: 100vw;
     height: 100vh;
 
-    background: radial-gradient(rgb(0, 0, 0), rgb(26, 2, 2));
+    background: radial-gradient(rgb(44, 44, 44), rgb(10, 10, 10));
+    /* background: radial-gradient(rgb(18, 31, 51), rgb(10, 10, 10)); */
 
     position: absolute;
     z-index: -1;
@@ -27,23 +28,111 @@
     align-items: center;
 }
 
+#searchFilters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.button {
+    width: 7vw;
+    height: 2.5vw;
+
+    color: white;
+    font-size: 1vw;
+
+    padding: .2vw .5vw;
+    border: .2vw solid rgb(223, 223, 223);
+    border-radius: .2vw;
+    background: rgba(255, 255, 255, 0.171);
+
+    cursor: pointer;
+}
+
+.genrePicker {
+    width: 10vw;
+}
+
+.genrePicker option {
+    color: black;
+}
+
 #movieContainer {
-    width: 50vw;
-    height: 50vh;
+    width: 70vw;
+    height: 71vh;
+
+    position: relative;
+    top: 2vw;
+
+    filter: drop-shadow(0 0 1vw rgba(0, 0, 0, 0.486));
+
+    /* overflow: hidden; */
+}
+
+#movieContainerBg {
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(30deg, rgb(77, 8, 23), rgb(180, 25, 58));
+
+    position: absolute;
+    z-index: -1;
+}
+
+#loadingScreen {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+}
+
+#loadingScreen {
+    width: 5vw;
+    height: 5vw;
+
+    border-radius: 50%;
+    border-top: .3vw solid #FFF;
+    border-right: .3vw solid transparent;
+
+    display: none;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    animation: loading 1s linear infinite;
+}
+  
+@keyframes loading {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+} 
+
+#movieContainerContent {
+    width: 100%;
+    height: 100%;
 
     color: white;
     font-size: 1.3vw;
-
-    background: linear-gradient(30deg, rgb(77, 8, 23), rgb(180, 25, 58));
 
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1vw;
-
-    position: relative;
-
-    filter: drop-shadow(0 0 1vw rgba(0, 0, 0, 0.274));
 }
 
 #moviePoster {
@@ -51,6 +140,8 @@
     height: 100%;
 
     position: relative;
+
+    filter: drop-shadow(0 0 .5vw rgba(0, 0, 0, 0.26));
 }
 
 #moviePoster::after {
@@ -89,23 +180,32 @@
 }
 
 #movieTitle {
+    width: 30vw;
+
+    text-overflow: ellipsis;
     font-family: "New Amsterdam", sans-serif;
     font-weight: 400;
     font-style: normal;
-}
 
-#movieCaption {
-    display: flex;
-    gap: 5vw;
-}
-
-#movieDescription {
-    margin-top: 2vw;
+    overflow: hidden;
 }
 
 #movieRating {
+    width: 6.5vw; 
+
+    text-align: right;
+
     position: absolute;
-    top: 85%;
+    top: 5.5%;
+    left: 88%;
+}
+
+#ratingsIcon {
+    color: rgb(255, 196, 0);
+
+    position: absolute;
+    top: 2%;
+    left: -15%;
 }
 
 #voteCount {
@@ -114,36 +214,60 @@
     opacity: .5;
 }
 
-.button {
-    width: 7vw;
-    height: 2.5vw;
+.timeLabel {
+    margin: 0 .3vw;
 
-    color: white;
-    font-size: 1vw;
+    color: lightgray;
+}
 
-    padding: .2vw .5vw;
-    border: .2vw solid rgb(223, 223, 223);
-    border-radius: .2vw;
-    background: rgba(255, 255, 255, 0.171);
+#movieDescription {
+    width: 100%;
+    max-height: 11.2vw;
+
+    -webkit-line-clamp: 7;
+    line-clamp: 7;
+    text-overflow: ellipsis;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+
+    margin-top: 2vw;
+
+    overflow: hidden;
+}
+
+#movieCast, #movieDirector {
+    width: 100%;
+    height: 3.5vw;
+
+    margin-top: 2vw;
+
+    font-size: 1.05vw;
+
+    display: flex;
+    flex-direction: column;
+    gap: .5vw;
+
+    opacity: .7;
+}
+
+#movieDirector {
+    margin-top: 1vw;
+}
+
+.castTitle {
+    opacity: .5;
+}
+
+#movieOrigin {
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+    gap: .5vw;
 
     position: absolute;
-    transform: translate(-50%, -50%);
+    top: 86%;
 
-    cursor: pointer;
-}
-
-.genrePicker {
-    width: 10vw;
-
-    top: 16%;
-    left: 50%;
-}
-
-.genrePicker option {
-    color: black;
-}
-
-.refresh {
-    top: 84%;
-    left: 50%;
+    opacity: .5;
 }

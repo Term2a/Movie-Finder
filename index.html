@@ -21,80 +21,107 @@
 <body>
     <div id="mainBg"></div>
     <main id="main">
-        <select name="selector" class="button genrePicker">
-            <option selected="selected" value="0">
-                Any Genre
-            </option>
-            <option class="movieGenre" value="28">
-                Ação
-            </option>
-            <option class="movieGenre" value="12">
-                Aventura
-            </option>
-            <option class="movieGenre" value="16">
-                Animação
-            </option>
-            <option class="movieGenre" value="35">
-                Comédia
-            </option>
-            <option class="movieGenre" value="80">
-                Crime
-            </option>
-            <option class="movieGenre" value="99">
-                Documentário
-            </option>
-            <option class="movieGenre" value="36">
-                História
-            </option>
-            <option class="movieGenre" value="14">
-                Fantasia
-            </option>
-            <option class="movieGenre" value="18">
-                Drama
-            </option>
-            <option class="movieGenre" value="9648">
-                Mistério
-            </option>
-            <option class="movieGenre" value="10749">
-                Romance
-            </option>
-            <option class="movieGenre" value="10752">
-                Guerra
-            </option>
-            <option class="movieGenre" value="53">
-                Thriller
-            </option>
-            <option class="movieGenre" value="37">
-                Faroeste
-            </option>
-            <option class="movieGenre" value="10751">
-                Família
-            </option>
-            <option class="movieGenre" value="27">
-                Terror
-            </option>
-            <option class="movieGenre" value="878">
-                Ficção Científica
-            </option>
-            <option class="movieGenre" value="10770">
-                Cinema TV
-            </option>
-            <option class="movieGenre" value="10402">
-                Música
-            </option>
-        </select>
-        <div id="movieContainer">
-            <div id="moviePoster">
-                <img src="#" alt="Movie Poster">
-            </div>
-            <div id="movieInfo">
-                <h1 id="movieTitle"></h1>
-                <h3 id="movieRuntime"></h3>
-                <p id="movieDescription"></p>
-                <h3 id="movieRating"></h3>
-            </div>
+        <div id="searchFilters">
+            <select name="selector" class="button genrePicker">
+                <option selected="selected" value="0">
+                    Aleatório
+                </option>
+                <option class="movieGenre" value="28">
+                    Ação
+                </option>
+                <option class="movieGenre" value="12">
+                    Aventura
+                </option>
+                <option class="movieGenre" value="16">
+                    Animação
+                </option>
+                <option class="movieGenre" value="35">
+                    Comédia
+                </option>
+                <option class="movieGenre" value="80">
+                    Crime
+                </option>
+                <option class="movieGenre" value="99">
+                    Documentário
+                </option>
+                <option class="movieGenre" value="36">
+                    História
+                </option>
+                <option class="movieGenre" value="10752">
+                    Guerra
+                </option>
+                <option class="movieGenre" value="14">
+                    Fantasia
+                </option>
+                <option class="movieGenre" value="878">
+                    Ficção Científica
+                </option>
+                <option class="movieGenre" value="10749">
+                    Romance
+                </option>
+                <option class="movieGenre" value="18">
+                    Drama
+                </option>
+                <option class="movieGenre" value="9648">
+                    Mistério
+                </option>
+                <option class="movieGenre" value="53">
+                    Thriller
+                </option>
+                <option class="movieGenre" value="27">
+                    Terror
+                </option>
+                <option class="movieGenre" value="37">
+                    Faroeste
+                </option>
+                <option class="movieGenre" value="10770">
+                    TV Cinema
+                </option>
+                <option class="movieGenre" value="10751">
+                    Família
+                </option>
+                <option class="movieGenre" value="10402">
+                    Musical
+                </option>
+            </select>
+            <input class="button refresh" type="button" value="REFRESH" onclick="getMovies(genre)">
         </div>
-        <input class="button refresh" type="button" value="REFRESH" onclick="getMovies(genre)">
+        <div id="movieContainer">
+            <div id="movieContainerBg"></div>
+            <div id="loadingScreen"></div>
+            <div id="movieContainerContent">
+                <div id="moviePoster">
+                    <img src="#" alt="Movie Poster">
+                </div>
+                <div id="movieInfo">
+                    <h1 id="movieTitle"></h1>
+                    <h3 id="movieRating"></h3>
+                    <h3 id="movieRuntime"></h3>
+                    <p id="movieDescription"></p>
+                    <p id="movieCast">
+                        <span class="castTitle">
+                            Elenco
+                        </span>
+                        <span id="castList"></span>
+                    </p>
+                    <p id="movieDirector">
+                        <span class="castTitle">
+                            Diretor
+                        </span>
+                        <span id="directorList"></span>
+                    </p>
+                    <h4 id="movieOrigin">
+                        <span class="castTitle">
+                            País
+                        </span>
+                        <span id="origin"></span>
+                    </h4>
+                </div>
+            </div>
+
+        </div>
     </main>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
